@@ -1,52 +1,31 @@
 const deepFreeze = require('deep-freeze');
 
-const gameCategories = {
-    "face": {
-        "game-category": "face",
-        "suggestion": "Facial Expressions",
-        "expressions": [
-            "sad",
-            "happy",
-            "angry"
-        ],
-    },
-    "tone": {
-        "game-category": "tone",
-        "suggestion": "Tone",
-        "expressions": [
-            "sad",
-            "happy",
-            "angry"
-        ]
-    }
-};
-
-const expressionContent = {
+const content = {
     "sad": {
-        "displayName": "Lisa",
-        "emotionName": "Sad",
-        "image": "https://emojipedia-us.s3.amazonaws.com/thumbs/240/google/80/disappointed-face_1f61e.png",
+        "displayName": "Bart",
+        "emotionName": "sad",
+        "image": "https://i.pinimg.com/236x/db/f5/17/dbf5175cc791abf633839ac1f67ab2f1--sad-simpsons-lisa-simpson.jpg",
         "tone": {
             "sound": "ogg goes here",
-            "text": "Boo hoo hoo"
+            "text": "Boo hoo hoo..."
         }
     },
     "happy": {
-        "displayName": "Bart",
-        "emotionName": "Happy",
-        "image": "https://emojipedia-us.s3.amazonaws.com/thumbs/240/google/80/grinning-face_1f600.png",
+        "displayName": "Milhouse",
+        "emotionName": "happy",
+        "image": "https://deadhomersociety.files.wordpress.com/2011/11/momandpopart5.png",
         "tone": {
             "sound": "ogg goes here",
-            "text": "Yay so happy"
+            "text": "Everything's comin' up Milhouse!"
         }
     },
     "angry": {
-        "displayName": "Marge",
-        "emotionName": "Angry",
-        "image": "https://emojipedia-us.s3.amazonaws.com/thumbs/240/google/80/pouting-face_1f621.png",
+        "displayName": "Lisa",
+        "emotionName": "angry",
+        "image": "http://www.aveleyman.com/Gallery/ActorsS/tve25371-19910926-696.gif",
         "tone": {
             "sound": "ogg goes here",
-            "text": "Grr"
+            "text": "Have you no moral compass?!"
         }
     }
 };
@@ -69,7 +48,6 @@ const general = {
 
 // Use deepFreeze to make the constant objects immutable so they are not unintentionally modified
 module.exports = deepFreeze({
-    gameCategories,
-    expressionContent,
+    content,
     general
 });

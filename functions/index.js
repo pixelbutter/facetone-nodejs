@@ -17,7 +17,6 @@ const {ApiAiApp} = require('actions-on-google');
 const functions = require('firebase-functions');
 const {sprintf} = require('sprintf-js');
 
-// The Firebase Admin SDK to access the Firebase Realtime Database.
 const admin = require('firebase-admin');
 admin.initializeApp(functions.config().firebase);
 
@@ -48,15 +47,21 @@ if (!Object.values) {
 }
 
 const askQuestion = app => {
-    if (app.getContext(Contexts.FACIAL_EXPRESSIONS)) {
-        const card = app.buildBasicCard("Boo hoo hoo")
-            .setImage("https://emojipedia-us.s3.amazonaws.com/thumbs/240/google/80/disappointed-face_1f61e.png",
-                "sad");
+    let currentExpression = strings.content.happy;
 
-        app.ask(app.buildRichResponse()
-            .addSimpleResponse("What best describes this emotion?")
-            .addBasicCard(card)
-            .addSuggestions(["disappointed", "happy", "surprised"]));
+    if (app.getContext(Contexts.FACIAL_EXPRESSIONS)) {
+        const carousel = app.buildCarousel();
+        for (let i in strings.content) {
+            let expression = strings.content[i];
+            carousel.addItems(app.buildOptionItem(expression.displayName, [])
+                .setTitle(expression.displayName)
+                .setDescription(expression.tone.text)
+                .setImage(expression.image, expression.displayName));
+        }
+
+        app.askWithCarousel(app.buildRichResponse()
+            .addSimpleResponse("Who best describes the emotion " + currentExpression.emotionName + "?"),
+            carousel);
     } else if (app.getContext(Contexts.TONE)) {
         app.ask(app.buildRichResponse()
             .addSimpleResponse("you picked tone of voice"));
