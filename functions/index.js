@@ -25,7 +25,8 @@ const strings = require('./strings');
 process.env.DEBUG = 'actions-on-google:*';
 
 const Actions = {
-    ASK_QUESTION: 'ask.question'
+    ASK_QUESTION: 'ask.question',
+    ITEM_SELECTED: 'item.selected'
 };
 const Contexts = {
     FACIAL_EXPRESSIONS: 'facial_expressions',
@@ -70,8 +71,14 @@ const askQuestion = app => {
     }
 };
 
+const itemSelected = app => {
+      const param = app.getContextArgument('actions_intent_option', 'OPTION').value;
+      app.tell("You picked " + param);
+}
+
 const actionMap = new Map();
 actionMap.set(Actions.ASK_QUESTION, askQuestion);
+actionMap.set(Actions.ITEM_SELECTED, itemSelected);
 
 const faceTone = functions.https.onRequest((request, response) => {
     const app = new ApiAiApp({request, response});
